@@ -4,6 +4,7 @@ import {
   recordReferenceEvent,
   verifyLaunchToken,
 } from "@/lib/ludwitt-reference";
+import { verifyFirebaseIdToken } from "@/lib/firebase-server";
 import {
   postPitchRiseWebhook,
   verifyPitchRiseUser,
@@ -49,6 +50,12 @@ export async function POST(req: NextRequest) {
         const data = me.body as { user?: { uid?: string; email?: string } };
         userId = data.user?.uid ?? userId;
         email = data.user?.email ?? email;
+      } else {
+        const firebaseUser = await verifyFirebaseIdToken(idToken);
+        if (firebaseUser) {
+          userId = firebaseUser.uid;
+          email = firebaseUser.email;
+        }
       }
       pitchrise = await postPitchRiseWebhook(idToken, {
         event: event as LearningEventName,
