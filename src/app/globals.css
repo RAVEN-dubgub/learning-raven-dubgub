@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+:root {
+  --background: #04060f;
+  --foreground: #e8edf8;
+  --holo-cyan: #22d3ee;
+  --holo-magenta: #e879f9;
+  --holo-purple: #a78bfa;
+  --holo-base: #04060f;
+  --holo-surface: rgba(8, 14, 28, 0.72);
+  --holo-border: rgba(34, 211, 238, 0.22);
+  --holo-muted: #94a3b8;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.08), transparent 40%),
+    radial-gradient(circle at 80% 0%, rgba(232, 121, 249, 0.08), transparent 35%),
+    var(--holo-base);
+  color: var(--foreground);
+}
+
+a { color: inherit; text-decoration: none; }
+
+.holo-panel {
+  border: 1px solid var(--holo-border);
+  background: var(--holo-surface);
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+}
+
+.holo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.65rem 1.25rem;
+  font-weight: 600;
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.18), rgba(167, 139, 250, 0.18));
+}
+
+.holo-btn:hover { filter: brightness(1.08); }
+
+.holo-muted { color: var(--holo-muted); }

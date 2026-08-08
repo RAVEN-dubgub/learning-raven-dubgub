@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AppRegistration {
+  id        String   @id @default(cuid())
+  appId     String   @unique
+  apiKey    String   @unique
+  jwtSecret String
+  title     String
+  topic     String
+  launchUrl String
+  repoUrl   String
+  createdAt DateTime @default(now())
+}
+
+model Learner {
+  id          String            @id @default(cuid())
+  firebaseUid String            @unique
+  email       String
+  displayName String?
+  createdAt   DateTime          @default(now())
+  progress    LessonProgress[]
+  sessions    LearningSession[]
+  events      LearningEvent[]
+}
+
+model LessonProgress {
+  id          String   @id @default(cuid())
+  learnerId   String
+  lessonId    String
+  completed   Boolean  @default(false)
+  quizScore   Int?
+  completedAt DateTime?
+  learner     Learner  @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+
+  @@unique([learnerId, lessonId])
+}
+
+model LearningSession {
+  id        String          @id @default(cuid())
+  learnerId String
+  startedAt DateTime        @default(now())
+  endedAt   DateTime?
+  source    String          @default("direct")
+  learner   Learner         @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+  events    LearningEvent[]
+}
+
+model LearningEvent {
+  id        String          @id @default(cuid())
+  sessionId String
+  learnerId String
+  event     String
+  metadata  Json?
+  counted   Boolean         @default(true)
+  createdAt DateTime        @default(now())
+  session   LearningSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  learner   Learner         @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+
+  @@index([learnerId, event])
+  @@index([sessionId])
+}
