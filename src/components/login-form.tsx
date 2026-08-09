@@ -8,7 +8,7 @@ import { NexusPanel } from "@/components/nexus-panel";
 
 export function LoginForm() {
   const router = useRouter();
-  const [email, setEmail] = useState("wolfscotland@gmail.com");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState<"login" | "register">("login");
   const [error, setError] = useState<string | null>(null);

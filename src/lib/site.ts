@@ -4,7 +4,7 @@ export const siteConfig = {
   description:
     "A Hult Cohort learning app teaching Git, GitHub, and PR workflows for AI-assisted development, integrated with Ludwitt/PitchRise.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  author: "Joshua Scotland",
+  author: "RAVEN",
   handle: "raven-dubgub",
   topic: "Developer tooling",
   repo: "https://github.com/RAVEN-dubgub/learning-raven-dubgub",
