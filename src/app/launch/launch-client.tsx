@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { NexusPanel } from "@/components/nexus-panel";
 
 export default function LaunchClient() {
   const params = useSearchParams();
@@ -21,9 +22,9 @@ export default function LaunchClient() {
   }, [token, router]);
 
   return (
-    <div className="holo-panel p-8">
-      <h1 className="text-2xl font-semibold">Launch</h1>
-      <p className="mt-3 text-slate-300">{status}</p>
-    </div>
+    <NexusPanel className="p-8">
+      <h1 className="font-[family-name:var(--font-share-tech)] text-2xl uppercase tracking-wide">Launch</h1>
+      <p className="mt-3 font-[family-name:var(--font-geist-mono)] text-sm text-slate-300">{status}</p>
+    </NexusPanel>
   );
 }

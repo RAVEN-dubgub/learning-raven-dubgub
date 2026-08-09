@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+  <rect x="2" y="2" width="44" height="44" stroke="#c6ff00" stroke-width="2" opacity="0.5"/>
+  <path d="M8 14h32M8 24h20M8 34h28" stroke="#00a8ff" stroke-width="1.5" opacity="0.8"/>
+  <text x="24" y="28" text-anchor="middle" fill="#c6ff00" font-family="monospace" font-size="11" font-weight="bold">//AGL</text>
+</svg>

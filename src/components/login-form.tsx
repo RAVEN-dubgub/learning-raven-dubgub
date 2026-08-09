@@ -3,6 +3,8 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { loginWithEmail, registerWithEmail } from "@/lib/firebase-client";
+import { GlitchHeading } from "@/components/glitch-heading";
+import { NexusPanel } from "@/components/nexus-panel";
 
 export function LoginForm() {
   const router = useRouter();
@@ -31,42 +33,49 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="holo-panel mx-auto max-w-md space-y-4 p-6">
-      <h1 className="text-2xl font-semibold">PitchRise sign-in</h1>
-      <p className="holo-muted text-sm">
-        Uses the PitchRise Firebase project (`pitch-rise`). Create an account here or sign in if you already use Ludwitt.
-      </p>
-      <label className="block space-y-1 text-sm">
-        <span>Email</span>
-        <input
-          className="w-full rounded-lg border border-cyan-400/20 bg-black/30 px-3 py-2"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </label>
-      <label className="block space-y-1 text-sm">
-        <span>Password</span>
-        <input
-          className="w-full rounded-lg border border-cyan-400/20 bg-black/30 px-3 py-2"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      {error ? <p className="text-sm text-rose-300">{error}</p> : null}
-      <button type="submit" className="holo-btn w-full" disabled={busy}>
-        {busy ? "Working…" : mode === "login" ? "Sign in" : "Create account"}
-      </button>
-      <button
-        type="button"
-        className="holo-muted w-full text-sm underline"
-        onClick={() => setMode(mode === "login" ? "register" : "login")}
-      >
-        {mode === "login" ? "Need an account? Register" : "Already registered? Sign in"}
-      </button>
+    <form onSubmit={onSubmit} className="mx-auto max-w-md space-y-4">
+      <NexusPanel className="space-y-4 p-6">
+        <p className="font-[family-name:var(--font-geist-mono)] text-xs uppercase tracking-widest text-[var(--dedsec-blue)]">
+          AUTH :: pitch-rise.firebase
+        </p>
+        <GlitchHeading as="h1" className="text-2xl">
+          Sign in
+        </GlitchHeading>
+        <p className="dedsec-muted text-sm">
+          Uses the PitchRise Firebase project (<code>pitch-rise</code>). Create an account here or sign in if you already use Ludwitt.
+        </p>
+        <label className="block space-y-1 text-sm">
+          <span className="font-[family-name:var(--font-geist-mono)] text-xs uppercase">email</span>
+          <input
+            className="nexus-input"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </label>
+        <label className="block space-y-1 text-sm">
+          <span className="font-[family-name:var(--font-geist-mono)] text-xs uppercase">password</span>
+          <input
+            className="nexus-input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </label>
+        {error ? <p className="text-sm text-[var(--dedsec-error)]">{error}</p> : null}
+        <button type="submit" className="nexus-btn w-full" disabled={busy}>
+          {busy ? "Working…" : mode === "login" ? "Sign in" : "Create account"}
+        </button>
+        <button
+          type="button"
+          className="dedsec-muted w-full text-sm underline"
+          onClick={() => setMode(mode === "login" ? "register" : "login")}
+        >
+          {mode === "login" ? "Need an account? Register" : "Already registered? Sign in"}
+        </button>
+      </NexusPanel>
     </form>
   );
 }

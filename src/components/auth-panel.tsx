@@ -21,21 +21,25 @@ export function useFirebaseUser() {
 export function AuthPanel() {
   const { user, loading, logout } = useFirebaseUser();
 
-  if (loading) return <p className="holo-muted text-sm">Checking PitchRise session…</p>;
+  if (loading) {
+    return (
+      <p className="dedsec-muted font-[family-name:var(--font-geist-mono)] text-sm">
+        // checking pitch-rise session…
+      </p>
+    );
+  }
   if (!user) {
     return (
-      <p className="holo-muted text-sm">
-        Sign in with your PitchRise/Ludwitt Firebase account to sync learning events.
+      <p className="dedsec-muted font-[family-name:var(--font-geist-mono)] text-sm">
+        // sign in to sync learning events with PitchRise Firebase
       </p>
     );
   }
 
   return (
     <div className="flex flex-wrap items-center gap-3 text-sm">
-      <span className="rounded-full border border-cyan-400/30 px-3 py-1">
-        {user.email}
-      </span>
-      <button type="button" className="holo-btn text-sm" onClick={() => logout()}>
+      <span className="chip chip--ready">{user.email}</span>
+      <button type="button" className="nexus-btn nexus-btn--ghost text-sm" onClick={() => logout()}>
         Sign out
       </button>
     </div>

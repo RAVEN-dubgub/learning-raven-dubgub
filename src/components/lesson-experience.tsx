@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 import type { Lesson } from "@/lib/lessons";
 import { getIdToken } from "@/lib/firebase-client";
+import { GlitchHeading } from "@/components/glitch-heading";
+import { NexusPanel } from "@/components/nexus-panel";
 
 function sessionId() {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
@@ -31,9 +33,8 @@ export function LessonExperience({ lesson }: { lesson: Lesson }) {
         ...extra,
       }),
     });
-    const data = await res.json();
-    setEvents((prev) => [...prev, `${event} → ${res.status}`]);
-    return data;
+    setEvents((prev) => [...prev, `[${res.ok ? "OK" : "ERR"}] ${event} → ${res.status}`]);
+    return res.json();
   }
 
   async function startLesson() {
@@ -56,37 +57,43 @@ export function LessonExperience({ lesson }: { lesson: Lesson }) {
 
   return (
     <div className="space-y-6">
-      <div className="holo-panel p-6">
-        <p className="holo-muted text-sm">{lesson.minutes} min · {lesson.summary}</p>
-        <h1 className="mt-2 text-3xl font-semibold">{lesson.title}</h1>
+      <NexusPanel className="p-6">
+        <p className="dedsec-muted font-[family-name:var(--font-geist-mono)] text-sm">
+          {lesson.minutes} min · {lesson.summary}
+        </p>
+        <GlitchHeading as="h1" className="mt-2 text-3xl">
+          {lesson.title}
+        </GlitchHeading>
         <ul className="mt-4 list-disc space-y-1 pl-5 text-slate-300">
           {lesson.objectives.map((o) => (
             <li key={o}>{o}</li>
           ))}
         </ul>
-      </div>
+      </NexusPanel>
 
       {!started ? (
-        <button type="button" className="holo-btn" onClick={startLesson}>
-          Start lesson
+        <button type="button" className="nexus-btn" onClick={startLesson}>
+          Execute module
         </button>
       ) : (
         <>
-          <div className="holo-panel space-y-4 p-6">
+          <NexusPanel className="space-y-4 p-6">
             {lesson.content.map((paragraph) => (
-              <p key={paragraph} className="leading-relaxed text-slate-200">
+              <p key={paragraph} className="lesson-prose">
                 {paragraph}
               </p>
             ))}
-          </div>
+          </NexusPanel>
 
-          <div className="holo-panel space-y-4 p-6">
-            <h2 className="text-xl font-semibold">Quick check</h2>
+          <NexusPanel className="space-y-4 p-6">
+            <h2 className="font-[family-name:var(--font-share-tech)] text-xl uppercase tracking-wide">
+              Quick check
+            </h2>
             {lesson.quiz.map((q) => (
-              <fieldset key={q.id} className="space-y-2">
-                <legend className="font-medium">{q.prompt}</legend>
+              <fieldset key={q.id} className="space-y-2 border-0 p-0">
+                <legend className="mb-2 font-medium">{q.prompt}</legend>
                 {q.choices.map((choice, idx) => (
-                  <label key={choice} className="flex items-center gap-2 text-sm">
+                  <label key={choice} className="quiz-option text-sm">
                     <input
                       type="radio"
                       name={q.id}
@@ -97,35 +104,41 @@ export function LessonExperience({ lesson }: { lesson: Lesson }) {
                   </label>
                 ))}
                 {submitted ? (
-                  <p className="text-sm text-cyan-200/90">{q.explanation}</p>
+                  <p className="text-sm text-[var(--dedsec-blue)]">{q.explanation}</p>
                 ) : null}
               </fieldset>
             ))}
             {!submitted ? (
               <button
                 type="button"
-                className="holo-btn"
+                className="nexus-btn"
                 onClick={submitQuiz}
                 disabled={lesson.quiz.some((q) => answers[q.id] === undefined)}
               >
                 Submit quiz
               </button>
             ) : (
-              <p className="text-cyan-200">
-                Score {score}/{lesson.quiz.length} · events recorded
+              <p className="font-[family-name:var(--font-geist-mono)] text-[var(--dedsec-lime)]">
+                score {score}/{lesson.quiz.length} · events recorded
               </p>
             )}
-          </div>
+          </NexusPanel>
         </>
       )}
 
       {events.length ? (
-        <div className="holo-panel p-4 text-xs text-slate-400">
-          <p className="mb-2 font-semibold text-slate-300">Integration log</p>
-          {events.map((line) => (
-            <div key={line}>{line}</div>
-          ))}
-        </div>
+        <NexusPanel className="p-4">
+          <p className="mb-2 font-[family-name:var(--font-geist-mono)] text-xs font-semibold uppercase tracking-wider text-slate-300">
+            Integration telemetry
+          </p>
+          <div className="terminal-feed">
+            {events.map((line) => (
+              <div key={line} className={line.startsWith("[OK]") ? "ok" : "err"}>
+                {line}
+              </div>
+            ))}
+          </div>
+        </NexusPanel>
       ) : null}
     </div>
   );
