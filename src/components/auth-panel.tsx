@@ -31,7 +31,7 @@ export function AuthPanel() {
   if (!user) {
     return (
       <p className="dedsec-muted font-[family-name:var(--font-geist-mono)] text-sm">
-        // sign in to sync learning events with PitchRise Firebase
+        // sign in at /login to sync learning events with PitchRise Firebase
       </p>
     );
   }
