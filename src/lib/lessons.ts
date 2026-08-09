@@ -75,7 +75,7 @@ export const lessons: Lesson[] = [
     content: [
       "`git status` shows what changed. `git add` stages files; `git commit` saves the snapshot.",
       "Branches let you experiment in isolation. `git switch -c feature/x` creates a safe workspace.",
-      "Good commit messages explain intent: what changed and why — agents can draft them, you approve.",
+      "Good commit messages explain intent: what changed and why; agents can draft them, you approve.",
     ],
     quiz: [
       {
@@ -99,9 +99,9 @@ export const lessons: Lesson[] = [
       "Understand upstream tracking",
     ],
     content: [
-      "A remote is a shared copy of your repo — usually `origin` on GitHub.",
+      "A remote is a shared copy of your repo; usually `origin` on GitHub.",
       "`git push -u origin my-branch` publishes commits and sets upstream tracking.",
-      "Never push secrets; use `.env.local` and `.gitignore` — agents should be reminded in prompts.",
+      "Never push secrets; use `.env.local` and `.gitignore`; agents should be reminded in prompts.",
     ],
     quiz: [
       {
@@ -132,7 +132,7 @@ export const lessons: Lesson[] = [
     content: [
       "Pull requests are the cohort submission unit: branch → PR → review → merge.",
       "Include production URL, integration notes, and a test plan checklist.",
-      "Keep PRs focused; agents can help draft bodies — you verify facts before merge.",
+      "Keep PRs focused; agents can help draft bodies; you verify facts before merge.",
     ],
     quiz: [
       {
@@ -148,7 +148,7 @@ export const lessons: Lesson[] = [
     id: "agent-workflow",
     slug: "agent-first-workflow",
     title: "Agent-first workflow",
-    summary: "Prompt, verify, commit, PR — the loop.",
+    summary: "Prompt, verify, commit, PR; the loop.",
     minutes: 12,
     objectives: [
       "Run smoke tests before merge",

@@ -146,7 +146,7 @@ export default function DashboardPage() {
           <p className="mt-3 text-slate-400">Checking session…</p>
         ) : !signedIn ? (
           <p className="terminal-feed mt-3 text-sm text-slate-300">
-            // not signed in —{" "}
+            // not signed in -{" "}
             <Link href="/login" className="text-[var(--dedsec-lime)] underline-offset-2 hover:underline">
               open /login
             </Link>{" "}

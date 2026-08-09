@@ -29,7 +29,7 @@ export function SiteFooter() {
         </a>
       </p>
       <p className="dedsec-muted mt-2 text-[0.65rem]">
-        UI inspired by hacker OS aesthetics — original assets only; no Ubisoft trademarks shipped.
+        UI inspired by hacker OS aesthetics. Original assets only; no Ubisoft trademarks shipped.
       </p>
     </footer>
   );
