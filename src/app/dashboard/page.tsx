@@ -43,7 +43,7 @@ export default function DashboardPage() {
   }, []);
 
   useEffect(() => {
-    void loadMetrics();
+    void Promise.resolve().then(() => loadMetrics());
   }, [loadMetrics]);
 
   useEffect(() => {
@@ -51,12 +51,7 @@ export default function DashboardPage() {
   }, []);
 
   useEffect(() => {
-    if (signedIn === null) return;
-    if (!signedIn) {
-      setPitchrise(null);
-      setPitchriseState("ready");
-      return;
-    }
+    if (signedIn !== true) return;
 
     let cancelled = false;
     (async () => {
@@ -102,7 +97,8 @@ export default function DashboardPage() {
         ) : metricsState === "error" ? (
           <div className="mt-3 space-y-3">
             <p className="text-sm text-[var(--dedsec-error)]">
-              // metrics fetch failed: {metricsError}
+              {"// metrics fetch failed: "}
+              {metricsError}
             </p>
             <button type="button" className="nexus-btn nexus-btn--ghost text-sm" onClick={() => void loadMetrics()}>
               Retry
@@ -146,14 +142,16 @@ export default function DashboardPage() {
           <p className="mt-3 text-slate-400">Checking session…</p>
         ) : !signedIn ? (
           <p className="terminal-feed mt-3 text-sm text-slate-300">
-            // not signed in -{" "}
+            {"// not signed in - "}
             <Link href="/login" className="text-[var(--dedsec-lime)] underline-offset-2 hover:underline">
               open /login
             </Link>{" "}
             to test /api/auth/me and /api/integrations
           </p>
         ) : pitchriseState === "error" ? (
-          <p className="mt-3 text-sm text-[var(--dedsec-error)]">// pitchrise status request failed</p>
+          <p className="mt-3 text-sm text-[var(--dedsec-error)]">
+            {"// pitchrise status request failed"}
+          </p>
         ) : (
           <pre className="terminal-feed mt-3 max-h-96 overflow-auto">
             {JSON.stringify(pitchrise, null, 2)}

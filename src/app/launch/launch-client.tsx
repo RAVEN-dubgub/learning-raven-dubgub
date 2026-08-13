@@ -8,16 +8,17 @@ export default function LaunchClient() {
   const params = useSearchParams();
   const router = useRouter();
   const token = params.get("token");
-  const [status, setStatus] = useState("Validating Ludwitt launch token…");
+  const [status, setStatus] = useState(() =>
+    token ? "Validating Ludwitt launch token…" : "Missing token. Launch from the reference API or cohort launcher.",
+  );
 
   useEffect(() => {
-    if (!token) {
-      setStatus("Missing token. Launch from the reference API or cohort launcher.");
-      return;
-    }
+    if (!token) return;
 
     sessionStorage.setItem("ludwitt_launch_token", token);
-    setStatus("Token stored. Redirecting to lessons…");
+    void Promise.resolve().then(() => {
+      setStatus("Token stored. Redirecting to lessons…");
+    });
     router.replace("/learn");
   }, [token, router]);
 

@@ -24,14 +24,14 @@ export function AuthPanel() {
   if (loading) {
     return (
       <p className="dedsec-muted font-[family-name:var(--font-geist-mono)] text-sm">
-        // checking pitch-rise session…
+        {"// checking pitch-rise session…"}
       </p>
     );
   }
   if (!user) {
     return (
       <p className="dedsec-muted font-[family-name:var(--font-geist-mono)] text-sm">
-        // sign in at /login to sync learning events with PitchRise Firebase
+        {"// sign in at /login to sync learning events with PitchRise Firebase"}
       </p>
     );
   }
